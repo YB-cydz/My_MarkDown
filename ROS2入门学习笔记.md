@@ -8,7 +8,7 @@
 
 ## 一键下载
 
-``` 
+``` bash
 wget http://fishros.com/install -O fishros && . fishros
 ```
 
@@ -18,14 +18,14 @@ wget http://fishros.com/install -O fishros && . fishros
 
 ### 		1. 创建工作空间
 
-```
+```bash
 mkdir -p ~/workspace_ws/src
 cd ~/workspace_ws/src
 ```
 
 ### 2.创建功能包
 
-```
+```bash
 ros2 pkg create pkg_name --build-type ament-python --dependencies rclpy
 ```
 
@@ -67,14 +67,14 @@ entry_points={
 
 ### 5.编译工作空间
 
-```
+```bash
 cd ~/workspace_ws
 colcon build
 ```
 
 ### 6.source一下
 
-```
+```bash
 source install/local_setup.sh	#更新环境变量，让电脑能识别到节点(仅在当前终端有效,每次都得source)
 
 echo "source /hoem/your_usr_name/workspace_ws/install/local_setup.sh" >> ~/.bashrc
@@ -88,7 +88,7 @@ echo "source /hoem/your_usr_name/workspace_ws/install/local_setup.sh" >> ~/.bash
 
 ### 7.运行节点
 
-```
+```bash
 ros2 run pkg_name node_name
 ```
 
