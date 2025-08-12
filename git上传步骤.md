@@ -76,9 +76,10 @@ git merge master --allow-unrelated-histories #强制合并master分支到main
 
 ----
 
-## 8.删除分支
+## 8.强制删除分支
 
 ```bash
-git branch -d master
+git branch -D master #强制删除本地分支
+git push origin --delete master #删除远程分支
 ```
 
