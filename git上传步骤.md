@@ -64,3 +64,11 @@ git add .
 git commit -m "更新说明"
 git push
 ```
+
+## 7.强制合并
+
+```bash
+git checkout main #切换到main分支
+git merge master --allow-unrelated-histories #强制合并master分支到main
+```
+
