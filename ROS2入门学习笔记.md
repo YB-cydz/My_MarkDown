@@ -94,3 +94,107 @@ ros2 run pkg_name node_name
 
 可以用` ros2 node list`查看节点
 
+---
+
+
+
+## 创建接口功能包编接口
+
+#### 1.创建功能包
+
+```bash
+ros2 pkg create example_ros2_interfaces --build-type ament_cmake --dependencies rosidl_default_generators geometry_msgs
+```
+
+注意功能包类型必须为：ament_cmake
+
+依赖`rosidl_default_generators`必须添加，`geometry_msgs`视内容情况添加（我们这里有`geometry_msgs/Pose pose`所以要添加）。
+
+#### 2.写入接口
+
+服务接口`MoveRobot.srv`
+
+```bash
+# 前进后退的距离
+float32 distance
+---
+# 当前的位置
+float32 pose
+```
+
+----
+
+话题接口，采用基础类型  `RobotStatus.msg`
+
+```bash
+uint32 STATUS_MOVEING = 1
+uint32 STATUS_STOP = 1
+uint32  status
+float32 pose
+```
+
+----
+
+话题接口，混合包装类型 `RobotPose.msg`
+
+```shell
+uint32 STATUS_MOVEING = 1
+uint32 STATUS_STOP = 2
+uint32  status
+geometry_msgs/Pose pose
+```
+
+---
+
+>注意话题接口放到`msg`文件夹下，以`.msg`结尾。服务接口放到`srv`文件夹下，以`srv`结尾。
+
+```bash
+.
+├── CMakeLists.txt
+├── msg
+│   ├── RobotPose.msg
+│   └── RobotStatus.msg
+├── package.xml
+└── srv
+    └── MoveRobot.srv
+```
+
+#### 3.修改`CMakeLists.txt`
+
+```cmake
+find_package(rosidl_default_generators REQUIRED)
+find_package(geometry_msgs REQUIRED)
+# 添加下面的内容
+rosidl_generate_interfaces(${PROJECT_NAME}
+  "msg/RobotPose.msg"
+  "msg/RobotStatus.msg"
+  "srv/MoveRobot.srv"
+  DEPENDENCIES geometry_msgs
+)
+```
+
+#### 4.修改`package.xml`
+
+```xml
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>rosidl_default_generators</depend>
+  <depend>geometry_msgs</depend>
+  
+  <member_of_group>rosidl_interface_packages</member_of_group> #添加这一行
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+```
+
+#### 5.编译
+
+```shell
+colcon build --packages-select example_ros2_interfaces
+```
+
+编译完成后在`chapt3_ws/install/example_ros2_interfaces/include`下应该可以看到C++的头文件。在`chapt3_ws/install/example_ros2_interfaces/local/lib/python3.10/dist-packages`下应该可以看到Python版本的头文件。
+
+接下来的代码里我们就可以通过头文件导入和使用我们定义的接口了。
+
+- 明天需要测试用别的工作空间的功能包下面的接口是否需要source
