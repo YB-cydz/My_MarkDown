@@ -100,7 +100,7 @@ ros2 run pkg_name node_name
 
 ## 创建接口功能包编接口
 
-#### 1.创建功能包
+### 1.创建功能包
 
 ```bash
 ros2 pkg create example_ros2_interfaces --build-type ament_cmake --dependencies rosidl_default_generators geometry_msgs
@@ -110,7 +110,7 @@ ros2 pkg create example_ros2_interfaces --build-type ament_cmake --dependencies 
 
 依赖`rosidl_default_generators`必须添加，`geometry_msgs`视内容情况添加（我们这里有`geometry_msgs/Pose pose`所以要添加）。
 
-#### 2.写入接口
+### 2.写入接口
 
 服务接口`MoveRobot.srv`
 
@@ -159,7 +159,7 @@ geometry_msgs/Pose pose
     └── MoveRobot.srv
 ```
 
-#### 3.修改`CMakeLists.txt`
+### 3.修改`CMakeLists.txt`
 
 ```cmake
 find_package(rosidl_default_generators REQUIRED)
@@ -173,7 +173,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
 )
 ```
 
-#### 4.修改`package.xml`
+### 4.修改`package.xml`
 
 ```xml
   <buildtool_depend>ament_cmake</buildtool_depend>
@@ -187,7 +187,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   <test_depend>ament_lint_common</test_depend>
 ```
 
-#### 5.编译
+### 5.编译
 
 ```shell
 colcon build --packages-select example_ros2_interfaces
