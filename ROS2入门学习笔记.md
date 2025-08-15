@@ -110,7 +110,7 @@ ros2 pkg create example_ros2_interfaces --build-type ament_cmake --dependencies 
 
 依赖`rosidl_default_generators`必须添加，`geometry_msgs`视内容情况添加（我们这里有`geometry_msgs/Pose pose`所以要添加）。
 
-### 2.写入接口
+### 2.写入接口(接口首字母必须大写)
 
 服务接口`MoveRobot.srv`
 
@@ -197,4 +197,64 @@ colcon build --packages-select example_ros2_interfaces
 
 接下来的代码里我们就可以通过头文件导入和使用我们定义的接口了。
 
-- 明天需要测试用别的工作空间的功能包下面的接口是否需要source
+### 6.附原始数据类型
+
+```
+bool
+byte
+char
+float32, float64
+int8, uint8
+int16, uint16
+int32, uint32
+int64, uint64
+string
+```
+
+---
+
+## 用Python编写launch
+
+#### 1.创建功能包
+
+```bash
+ros2 pkg create <包名> --build-type ament_cmake
+```
+
+#### 1.创建功能包
+
+```bash
+ros2 pkg create <包名> --build-type ament_cmake
+```
+
+#### 2.在包内的launch文件夹下编写.py文件
+
+```bash
+from launch import LaunchDescription
+from launch_ros.actions import Node
+
+def generate_launch_description():
+    node_1 = Node(
+        package='pkg_name',
+        executable='exe_name' #匹配写在setup.py中的程序入口
+    )
+    node_2 = Node(
+        package='pkg_name',
+        executable='exe_name'
+    )
+    launchdescription = LaunchDescription([node_1, node_2])
+    return launchdescription
+```
+
+#### 3.修改Cmakelist
+
+```bash
+install(DIRECTORY launch DESTINATION share/${PROJECT_NAME})
+```
+
+#### 4.编译运行
+
+
+
+
+
