@@ -221,12 +221,6 @@ string
 ros2 pkg create <包名> --build-type ament_cmake
 ```
 
-#### 1.创建功能包
-
-```bash
-ros2 pkg create <包名> --build-type ament_cmake
-```
-
 #### 2.在包内的launch文件夹下编写.py文件
 
 ```bash
