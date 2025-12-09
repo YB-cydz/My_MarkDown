@@ -1,7 +1,13 @@
+使用dockerfie构建镜像(. 表示dockerfile在当前目录下)
+
+```bash
+docker build -t imagename:latest .
+```
+
 创建新容器
 
 ```bash
-docker run -it ubuntu:22.04 bash
+docker run -it --ipc=host --net=host --privileged -e DISPLAY=unix$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw -e NVIDIA_DRIVER_CAPABILITIES=all --name docker_name image_name:tag /bin/bash
 ```
 
 容器改名
@@ -70,20 +76,10 @@ apt update
 apt install -y python3-pip python3-setuptools python3-colcon-common-extensions
 ```
 
-在docker中配置网络环境（这里是为了给mid360配置以太网ip192.168.1.5）
+宿主机开启X11访问权限
 
 ```bash
-# 1. 创建自定义桥接网络
-docker network create   --driver=bridge   --subnet=192.168.1.0/24   fastlio_net
-  
- # 2. 启动容器并分配固定 IP
-docker run -it --name fastlio   --network fastlio_net   --ip 192.168.1.5   your_fastlio_image /bin/bash
-```
-
-查看桥接网络
-
-```bash
-docker network ls
+xhost +local:docker
 ```
 
 
