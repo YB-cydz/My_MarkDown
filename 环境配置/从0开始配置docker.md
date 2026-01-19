@@ -82,6 +82,7 @@ apt install -y python3-pip python3-setuptools python3-colcon-common-extensions
 xhost +local:docker
 ```
 
+
 临时修改以太网口
 
 ```bash
@@ -95,9 +96,10 @@ sudo nmcli con add type ethernet ifname eno1 con-name eno1 ipv4.method manual ip
 sudo nmcli con up eno1
 ```
 
+将容器a的文件夹转移到容器b
 
+```bash
+docker exec 容器a名字 tar czf - -C /home/sentry_ws/src（所在目录） communication（该目录下要打包的文件） | docker exec -i 容器b名字 tar xzf - -C /home/sentry_ws/src（目标目录）
 
-
-
-
+```
 
