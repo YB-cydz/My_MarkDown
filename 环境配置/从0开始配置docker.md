@@ -82,6 +82,19 @@ apt install -y python3-pip python3-setuptools python3-colcon-common-extensions
 xhost +local:docker
 ```
 
+临时修改以太网口
+
+```bash
+sudo ifconfig eno1 192.168.1.50 netmask 255.255.255.0 up
+```
+
+永久修改以太网ip
+
+```bash
+sudo nmcli con add type ethernet ifname eno1 con-name eno1 ipv4.method manual ipv4.addresses 192.168.1.50/24 autoconnect yes
+sudo nmcli con up eno1
+```
+
 
 
 
