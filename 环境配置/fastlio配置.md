@@ -1,3 +1,5 @@
+> 建议先自己看下fastlio的官方的配置方法，详见fastlio的github仓库的md文档[hku-mars/FAST_LIO](https://github.com/hku-mars/FAST_LIO)
+
 ### mid360配置
 
 #### 底层驱动
